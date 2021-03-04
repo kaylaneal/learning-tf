@@ -6,6 +6,7 @@ from tensorflow.keras.applications.vgg19 import VGG19
 
 model = VGG19()
 # this creates the model
+# can print model.summary() to see the different layers
 
 from tensorflow.keras.preprocessing.image import load_img
 # the machinery to load the file
