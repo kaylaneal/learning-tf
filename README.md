@@ -1,4 +1,5 @@
-# findingFranklin
-using VGG19 model to predict a lovely picture of my dog Franklin
+# tfTrainingLearningPros
 
-VGG19 model guide was used - implements tensorflow and keras
+welcome to the process of trying to learn machine learning
+
+using vgg19 models through tensorflow/keras
