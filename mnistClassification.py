@@ -64,9 +64,9 @@ print ('Accuracy: %.3f' % acc)
 image = xTrain[0]
 yhat = model.predict(asarray([image]))
 print('Predicted: class=%d' % argmax(yhat))
-
-# you can use model.summary() to print a summary of each layer
-
+          
+model.summary()
+          
 # to plot learning curves:
 pyplot.title('Learning Curves')
 pyplot.xlabel('Epoch')
@@ -74,5 +74,3 @@ pyplot.ylabel('Cross Entropy')
 pyplot.plot(history.history['loss'], label = 'train')
 pyplot.plot(history.history['val_loss'], label = 'val')
 pyploy.legend()
-
-# you can save this model to continue training by using model.save('whateverYouWantToTitleIt.h5')
