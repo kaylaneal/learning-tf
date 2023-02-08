@@ -8,7 +8,7 @@ from tensorflow_examples.models.pix2pix import pix2pix
 from IPython.display import clear_output
 import matplotlib.pyplot as plt
 
-
+# DOWNLOAD DATASET
 dataset, info = tfds.load('oxford_iiit_pet:3.*.*', with_info = True)
 
 def normalize(input_image, input_mask):
@@ -44,9 +44,15 @@ class Augment(tf.keras.layers.Layer):
         return inputs, labels
 
 # BUILD INPUT PIPELINE
-train_batches = (train_images.cache().shuffle(BUFFER_SIZE)
-                .batch(BATCH_SIZE).repeat().map(Augment())
-                .prefetch(buffer_size = tf.data.experimental.AUTOTUNE))
+train_batches = (train_images.
+                take(BATCH_SIZE).
+                cache().
+                shuffle(BUFFER_SIZE).
+                repeat().
+                batch(BATCH_SIZE).
+                map(Augment()).
+                prefetch(buffer_size = tf.data.experimental.AUTOTUNE)
+                )
 
 test_batches = test_images.batch(BATCH_SIZE)
 
@@ -67,7 +73,7 @@ def display(display_list):
 # show sample input // true mask
 for images, masks in train_batches.take(2):
     sample_image, sample_mask = images[0], masks[0]
-    display([sample_image, sample_mask])
+#    display([sample_image, sample_mask])
 
 # BUILDING UNET MODEL
 base_model = tf.keras.applications.MobileNetV2(input_shape = [128, 128, 3], include_top = False)
