@@ -53,11 +53,11 @@ for (ax, inp, pred, tar) in zip(axes, inputMask, p2pGpred, realImage):
     ax[1].imshow(array_to_img(pred))
     ax[1].set_title("Pix2Pix Prediction")
 
-    ax[2].imshow(array_to_img(tgt))
+    ax[2].imshow(array_to_img(tar))
     ax[2].set_title("Target Label/Ground Truth")
 
 if not os.path.exists(config.BASE_IMAGES_PATH):
     os.makedirs(config.BASE_IMAGES_PATH)
 
 print("[INFO] Saving Predictions ... ")
-fig.savefig(config.GRID_IMAGE_PATH)
+fig.savefig(config.GRID_IMAGES_PATH)
