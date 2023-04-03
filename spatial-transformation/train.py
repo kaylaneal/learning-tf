@@ -3,6 +3,7 @@ import os
 import tensorflow as tf
 import tensorflow_datasets as tfds
 from keras.callbacks import EarlyStopping
+import matplotlib.pyplot as plt
 
 ## LOCAL IMPORTS
 import config
@@ -57,5 +58,28 @@ print('** COMPILING MODEL **')
 model.compile(loss = config.LOSS_FN, optimizer = config.OPT, metrics = ['accuracy'])
 
 print('** TRAINING MODEL **')
-model.fit(train_dataset, epochs = config.EPOCHS, 
+history = model.fit(train_dataset, epochs = config.EPOCHS, 
           callbacks = [monitor, earlystop], validation_data = test_dataset)
+
+# SAVE MODEL
+model.save('emnist_model')
+
+# VISUALIZE
+fig, ax = plt.subplots(2, 1)
+
+ax[0].plot(history.history['accuracy'])
+ax[0].plot(history.history['val_accuracy'])
+ax[0].set_title('Model Accuracy')
+ax[0].legend(['accuracy', 'val_accuracy'])
+ax[0].set_ylabel('accuracy')
+ax[0].set_xlabel('epoch')
+
+ax[1].plot(history.history['loss'])
+ax[1].plot(history.history['val_loss'])
+ax[1].set_title('Model Loss')
+ax[1].legend(['loss', 'val_loss'])
+ax[1].set_ylabel('loss')
+ax[1].set_xlabel('epoch')
+
+fig.tight_layout()
+fig.savefig('graphs.png')
